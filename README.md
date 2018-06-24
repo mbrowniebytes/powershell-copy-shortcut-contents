@@ -39,3 +39,16 @@ $skipExistingDestFile = 1;
 # 1 - show existing files, 0 - dont show, reducing output
 $showExistingFiles = 0;
 ```
+
+Example usage
+-----
+![01 files to backup.png](screenshots/01%20files%20to%20backup.png)
+
+![02 shortcuts to files to backup.png](screenshots/02%20shortcuts%20to%20files%20to%20backup.png)
+
+![03 copying files.png](screenshots/03%20copying%20files.png)
+
+![04 done copying files.png](screenshots/04%20done%20copying%20files.png)
+
+![05 copied files.png](screenshots/05%20copied%20files.png)
+
