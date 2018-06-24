@@ -1,0 +1,1 @@
+# powershell-copy-shortcut-contents
