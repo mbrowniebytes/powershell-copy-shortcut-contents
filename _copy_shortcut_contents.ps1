@@ -116,7 +116,12 @@ foreach ($shortcut in $shortcuts) {
 			}
 			
 			# copy
-			copy-item -Path "$srcPath" -Destination "$destRecreatePath" -Force -Recurse -Container -Exclude $exclude
+			$destPathOnly = "$destRecreatePath\..\"
+            if (!(Test-Path -path $destPathOnly)) {
+                write-host " Creating subdirectory $destPathOnly"
+                New-Item $destPathOnly -Type Directory
+            }
+			copy-item -Path "$srcPath" -Destination "$destRecreatePath" -Container -Exclude $exclude
 			
 			# show results in destPath, from current or prior copy-item
 			$files = gci "$destPath" -File -Recurse
@@ -144,7 +149,12 @@ foreach ($shortcut in $shortcuts) {
 			write-host "dryrun: copy-item -Path $srcPath -Destination $destRecreatePath -Filter {PSIsContainer} -Force -Recurse -Container"
 		} else {		
 			# https://stackoverflow.com/questions/9996649/copy-folders-without-files-files-without-folders-or-everything-using-powershel
-			copy-item -Path "$srcPath" -Destination "$destRecreatePath" -Filter {PSIsContainer} -Force -Recurse -Container					
+			$destPathOnly = "$destRecreatePath\..\"
+            if (!(Test-Path -path $destPathOnly)) {
+                write-host " Creating subdirectory $destPathOnly"
+                New-Item $destPathOnly -Type Directory
+            }
+			copy-item -Path "$srcPath" -Destination "$destRecreatePath" -Filter {PSIsContainer} -Container					
 		}
 		
 		# copy files with progress
