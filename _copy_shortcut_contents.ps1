@@ -142,6 +142,14 @@ foreach ($shortcut in $shortcuts)
     Write-Progress -Id 0 -Activity "Processing $index of $total shortcuts in $srcRelPath" -Status "Progress $progress%" -PercentComplete $progress
     write-host " Copying: $srcPath -> $destPath " -foregroundcolor DarkGreen -backgroundcolor white
 
+    if (!(Test-Path "$srcPath"))
+    {
+        write-host ""
+        write-host "srcPath does not exist: $srcPath" -foregroundcolor white -backgroundcolor DarkRed
+        write-host ""
+        PauseAndExit                
+    }
+            
     # skip existing dirs
     if (Test-Path "$destPath")
     {
@@ -291,7 +299,7 @@ foreach ($shortcut in $shortcuts)
             # show file name being copied
             # spacing for copy output
             #          '100% copied         1 file(s) copied. '
-            write-host "                                       $destRelPath" -NoNewLine
+            write-host "                                        $destRelPath" -NoNewLine
 
             # write-host "debug: srcFile: $srcFile ->"
             # write-host "debug: destFile: $destFile"
@@ -310,7 +318,16 @@ foreach ($shortcut in $shortcuts)
                 # robocopy asks for admin perms on ntfs/audit attribs
                 # copy copies with progress %
                 # /z   : Copies networked files in restartable mode.
-                cmd /c copy /z $srcFile $destFile
+                cmd /c copy /z "$srcFile" "$destFile"
+                if ($LastExitCode -ne 0)
+                {
+                    write-host ""
+                    write-host "Copied failed with error code $LastExitCode" -foregroundcolor white -backgroundcolor DarkRed
+                    write-host "srcFile: $srcFile"
+                    write-host "destFile: $destFile"
+                    write-host ""
+                    PauseAndExit
+                }      
             }
             $totalFilesCopied++
         }
