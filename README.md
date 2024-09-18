@@ -69,6 +69,10 @@ Example usage
       [stackoverflow](https://security.stackexchange.com/questions/1801/how-is-powershells-remotesigned-execution-policy-different-from-allsigned)
 
 ## Change Log
+### 2024-09-18 tag 0.1.1
+* test for srcPath from shortcut
+* after copy, check LastExitCode
+
 ### 2022-10-30 tag 0.1.0
 * fix subdirs not being created on first run  
 updated based on [PR #4](https://github.com/mbrowniebytes/powershell-copy-shortcut-contents/pull/4) from [l-palafox](https://github.com/l-palafox), thanks!  
